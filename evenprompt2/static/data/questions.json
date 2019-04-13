@@ -1,0 +1,30 @@
+{
+    "multiplication": [
+        "How many pizzas are needed to feed {} kids if each kid each eats {} pizzas?",
+        "How many kids does {} houses have if each house has {} kids?",
+        "How many rocks are in {} boxes if each box has {} rocks?",
+        "If each Aengon has {} legs, how many legs do {} Aengons have in total?",
+        "There are {} grocery stores in the city. Each grocery store has {} grocery store workers. How many grocery store workers are there in the city?"
+    ],
+    "addition": [
+        "John has {} stickers. If Patrick gives him {} more how much will he have in total?",
+        "Donald finds {} pencils in his backpack. He buys {} more at the store. How much pencils does he have now?",
+        "I have {} marbles. You give me {} marbles. How many marbles do I have now?",
+        "If Brandon has {} erasers, and I give Brandon {} erasers, how many erasers does he now have?",
+        "I have {} apples. I bought {} apples from the store. How many apples do I have now?"
+    ],
+    "subtraction": [
+        "Darren has {} oranges. Vikram stole {} oranges from Darren. How many oranges does Darren have now?",
+        "If Barnaby has {} pencils, and he loses {} pencils, how many pencils will he have left?",
+        "Marie has {} pieces of printer paper. She uses {} pieces. How many pieces of paper does she have left?",
+        "If Derek had {} dogs, and {} dogs ran away, how many dogs does he have now?",
+        "If Bob has {} dollars, and Karen stole {} dollars, how much money does Bob have left?"
+    ],
+    "division": [
+        "If Ritvik has {} balls, and {} balls fit into each box, how many boxes does he need?",
+        "There are {} pieces of candy, and {} kids in a class. How much pieces of candy does each kid get?",
+        "Kathy has {} friends and has {} cookies. If she doesn't like cookies, then how many cookies will each friend get?",
+        "If there are {} kids in a school, and each bus has {} seats, how many buses are needed to transport the students?",
+        "If I want to give out {} pencils to my {} friends, how many pencils will each friend get?"
+    ]
+}

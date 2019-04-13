@@ -1,0 +1,368 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:600,700,800,900');
+
+body {
+  background-color: #ffffff;
+  color: #333333;
+  margin-top: 5rem;
+  font-family: "GothamLight", Helvetica, sans-serif;
+}
+
+body {
+  background-image: url("../image/bg.png");
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+  font-family: "GothamMedium", Helvetica, sans-serif;
+}
+
+h1, h2, h3 {
+  text-transform: uppercase;
+  color: #3b4859;
+}
+
+.bg-steel {
+  background-color: #5f788a;
+}
+
+.bg-blue {
+  background-color: #0FACF3;
+}
+
+.button {
+  margin: 10px auto;
+  width: fit-content;
+  padding: 15px 20px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 8px 0 #0D9ADA;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.x-bold {
+  font-family: "GothamBold", Helvetica, sans-serif;
+}
+
+.tagline {
+  font-size: x-large;
+  font-weight: 700;
+  text-align: center;
+  color: #0FACF3;
+}
+
+h5 {
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #9facbd;
+}
+
+#blue, .navbar-toggler {
+  color: #0FACF3;
+}
+
+.navbar-collapse, .navbar {
+  background-color: white;
+}
+
+.white {
+  color: white;
+}
+.white:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.dropdown-item:focus {
+  background-color: #5f788a;
+  color: white;
+}
+
+.banner {
+  background-color: #0FACF3;
+  height: 200px;
+  width: 100%;  
+  max-width: 900px;
+  margin: auto;
+  display: table;
+  overflow: hidden;
+}
+
+.alert {
+  width: 100%;  
+  max-width: 900px;
+  margin: auto;
+}
+
+.nav-item:hover {
+  cursor: pointer;
+}
+
+.banner-text {
+  display: table-cell; 
+  vertical-align: middle;
+}
+
+.popup {
+  color: #6c757d;
+  max-width: 900px;
+  margin: auto; 
+  font-weight: 500;
+  font-size: medium;
+  line-height: 2;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #0FACF3;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #0FACF3;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.float-left {
+  float: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.horz-center {
+  margin:auto;
+}
+
+p {
+  line-height: 2;
+}
+
+.navbar {
+  -webkit-box-shadow: 0 4px 6px -6px #999;
+  -moz-box-shadow: 0 4px 6px -6px #999;
+  box-shadow: 0 4px 6px -6px #999;
+}
+
+label > input{ /* HIDE RADIO */
+  visibility: hidden; /* Makes input not-clickable */
+  position: absolute; /* Remove input from document flow */
+}
+label > input + div{ /* IMAGE STYLES */
+  cursor:pointer;
+  border:2px solid transparent;
+}
+label > input:checked + div{ /* (RADIO CHECKED) IMAGE STYLES */
+  border:5px solid #0FACF3;
+}
+
+a {
+  position: relative;
+  color: #0FACF3;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0FACF3;
+  text-decoration: none;
+}
+.pointer:hover {
+  cursor:pointer;
+}
+
+a:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #0FACF3;
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+a:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+.bio {
+  min-height: 100px;
+  margin: 10px;
+  margin-bottom: 15px;
+}
+
+.item-choices {
+  padding: 20px 30px;
+  color: white;
+  font-size: larger;
+  font-weight: 800;
+  margin: 20px 20px;
+  min-width: 150px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.green {
+  background-color: #3DD94A;
+}
+
+.yellow {
+  background-color: #FFD500;
+}
+
+.orange {
+  background-color: #FF7D00;
+}
+
+.purple {
+  background-color: #9574EA;
+}
+
+.comment-form {
+  height: 50px; 
+  width: 450px;
+  border-color: #0FACF3;
+  outline: none;
+}
+
+.comment-button {
+  border: none;
+  background-color: #0FACF3;
+  color: white;
+  width: 60px;
+  height: 30px;
+}
+.comment-button:hover {
+  cursor: pointer;
+}
+
+.comment-text {
+  font-size: 13px; 
+  line-height: 1.5; 
+  width: 200px;   
+  word-wrap: break-word;
+}
+
+.comment-icon {
+  height: 50px;
+  width: 50px;
+  padding: 3px; 
+  border: 2px solid rgb(230, 230, 230, .4); 
+  border-radius: 100px;
+}
+
+.va-top {
+  vertical-align:top;
+}
+
+.no-pad-top {
+  padding-top: 0px;
+}
+
+.gray {
+  color: rgb(160, 160, 160); 
+}
+
+@font-face {
+  font-family: GothamLight;
+  src: url("../fonts/GothamRounded.ttf")  format("truetype");
+}
+
+@font-face {
+  font-family: GothamMedium;
+  src: url("../fonts/GothamRoundedMedium.ttf")  format("truetype");
+}
+
+
+
+@font-face {
+  font-family: GothamBold;
+  src: url("../fonts/GothamRoundedBold.ttf")  format("truetype");
+}
+@media only screen and (min-width: 440px) {
+  h1 {
+      font-size: 50px;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .banner-logo {
+      height:100px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .banner-logo {
+      display: none;
+  }
+  .comment-form {
+    width: 300px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .comment-form {
+    height: 40px; 
+    width: 155px;
+  }
+}

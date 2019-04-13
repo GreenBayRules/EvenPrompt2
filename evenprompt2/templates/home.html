@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <div class="tagline">Math Attackerz is a fun and free website suitable for kids ages anywhere from 5-15!</div>
+        
+        A social community that is based off activity and skill points collected from fun games and challenges created specifically for the user based on their skill levels.
+
+        <div class="button bg-blue">
+            <a class="white" href="{{ url_for('users.register') }}">Register to try it now!</a>
+        </div>
+    </div>
+    
+{% endblock content %}

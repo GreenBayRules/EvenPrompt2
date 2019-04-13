@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    
+    {% if title %}
+        <title>evenprompt2 - {{ title }}</title>
+    {% else %}
+        <title>evenprompt2</title>
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='js/navbar.js') }}"></script>
+</head>
+<body>
+
+    <!-- Site navigation -->
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md fixed-top">
+            <div class="container">
+            <a id="blue" class="navbar-brand mr-4 x-bold" href="{{ url_for('main.home') }}"><img style="height: 40px;" src="{{ url_for('static', filename='image/logo.png')}}">&nbsp; evenprompt2</a>
+            <button class="navbar-toggler" type="button" onclick="alterStateOfDropDown()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+                <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
+                <a class="nav-item nav-link" href="{{ url_for('main.tutorial') }}">Tutorial</a>
+                <a class="nav-item nav-link" href="{{ url_for('game.play') }}">Play!</a>
+                </div>
+                <!-- Navbar Right Side -->
+                <div class="navbar-nav">
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" onclick="changeDropDown()">
+                            <img style="height: 40px; width: 40px; border-radius: 100px;" src="{{ url_for('static', filename='profile_pics/' + current_user.image_file)}}">&nbsp; {{ current_user.username }}
+                        </a>
+                        <div id="dropdownbut" class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ url_for('users.user_profile', username=current_user.username) }}">Profile</a>  
+                            <a class="dropdown-item" href="{{ url_for('users.account') }}">Settings</a>
+                            <div class="dropdown-divider"></div> 
+                            <a class="dropdown-item" href="{{ url_for('users.logout') }}">Logout</a> 
+                        </div>
+                    </li>
+                    {% else %}
+                        <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
+                        <a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a>
+                    {% endif %}
+                </div>
+            </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main view -->
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                            <br>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                {% if title %}
+                <div class="banner text-center">
+                    <div class="banner-text">
+                        <table style="margin:auto; width: 80%;">
+                            <td>
+                                <h1 class="animated fadeInDownBig x-bold white">{{ title }}</h1>
+                                <h5 class="animated fadeInLeftBig white">{{ subtitle }}</h5>
+                            </td>
+                            <td>
+                                {% if logo %}
+                                <img class="animated fadeInRightBig banner-logo" style="border-radius:100px;height: 180px;width:180px;" src="{{ url_for('static', filename='profile_pics/' + logo)}}">
+                                {% else %}
+                                <img class="animated fadeInRightBig banner-logo" style="height: 180px;" src="{{ url_for('static', filename='image/inverse-logo.png')}}">
+                                {% endif %}
+                            </td>
+                        </table>
+                    </div>
+                </div>
+                <br>
+                {% endif %}
+                <div class="popup">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+            <!-- <div class="col-md-4">
+            <div class="content-section">
+                <h3 class="animated fadeInRightBig">News!</h3>
+                <p class='text-muted'>Math Attackerz has been changed to a more friendly design!
+                    We also have a bunch of new features! 
+                    
+                    <br><br>Checkout the blog post <a href="#" id="blue">here</a> for more information
+                </p>
+            </div>
+            </div> -->
+        </div>
+    </main>
+    
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    
+    <footer class="footer">
+        
+    </footer>
+
+</body>
+</html>

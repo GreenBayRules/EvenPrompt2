@@ -1,0 +1,225 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">  
+
+    <div class="content-section">
+        <table style="width: 100%">
+            {% if rank_index %}
+            <td class="text-center" style="width: 50%">
+                <h1>{{ rank_index }}</h1>
+                <h5 id="blue">Rank</h5>
+            </td>
+            {% endif %}
+            <td class="text-center">
+                <h1>{{ user.points }}</h1>
+                <h5 id="blue">Attacker Points</h5>
+            </td>
+        </table>
+    </div>
+    {% if not current_user == user %}
+        {% if current_user in followers %}
+        <form action="{{ url_for('users.un_follow_user', user_id=user.id)}}" method="POST">
+            <input type="submit" class="btn btn-gray" style="float:right" value="Unfollow This User" />
+        </form>
+        {% else %}
+        <form action="{{ url_for('users.follow_user', user_id=user.id)}}" method="POST">
+            <input type="submit" class="btn btn-primary" style="float:right" value="Follow This User"  data-toggle="tooltip" data-placement="top" title="Following means you support this user"/>
+        </form>
+        {% endif %}
+    {% endif %}
+<br>
+    <h3 style="margin:10px">Bio:</h3>
+    <div class="bio">
+        {{ user.bio }}
+        {% if current_user == user %}
+        <br>
+        <input style="float:right;" type="button" class="btn btn-primary" onclick="window.location.href = '{{url_for('users.update_bio')}}'" value="Update your bio"/>
+        {% endif %}
+    </div>
+    
+
+    <h5 style="margin-left:10px; margin-bottom: 20px;">Following ({{ following|length }}):</h5>
+    <div class="content-section" style="overflow-x:scroll;">
+
+        {% if following|length == 0 %}
+            <table style="margin:auto" >
+                    <td class="text-center">This user has not followed any other users yet.</td>
+            </table>
+        {% else %}
+        <table>
+            {% for follow_user in following %}
+            <td class="text-center">
+                    <span class="pointer" onclick="window.location.href = '{{ url_for('users.user_profile', username=follow_user.username)}}'"><img style="height: 60px; width:60px; border-radius: 100px; margin-right: 20px;" src="{{ url_for('static', filename='profile_pics/' + follow_user.image_file)}}"></a>
+                <br>
+                <a href="{{ url_for('users.user_profile', username=follow_user.username)}}" style="font-size: 13px; margin-right: 20px;">{{ follow_user.username }}</a>
+            </td>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+
+    <h5 style="margin-left:10px; margin-bottom: 20px;">Followers ({{ followers|length }}):</h5>
+    <div class="content-section" style="overflow-x:scroll;">
+        {% if followers|length == 0 %}
+        <table style="margin:auto" >
+            <td class="text-center">This user does not have any followers yet.</td>
+        </table>
+        {% else %}
+        <table>
+            {% for follow_user in followers %}
+                <td style="text-align:center;">
+                        <span class="pointer" onclick="window.location.href = '{{ url_for('users.user_profile', username=follow_user.username)}}';"><img style="height: 60px; width:60px; border-radius: 100px; margin-right: 20px;" src="{{ url_for('static', filename='profile_pics/' + follow_user.image_file)}}"></span>
+                    <br>
+                    <a href="{{ url_for('users.user_profile', username=follow_user.username)}}" style="font-size: 13px; margin-right: 20px;">{{ follow_user.username }}</a>
+                </td>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+
+    <h5 style="margin-left:10px; margin-bottom: 20px;">Comments ({{ comments|length }}):</h5>  
+
+    
+    <div class="content-section">
+        <table cellpadding="5" style="margin-bottom: 5px;">
+                <td class="va-top"><img class="comment-icon" src="{{ url_for('static',filename='profile_pics/' + current_user.image_file) }}" /></td>
+                <td class="no-pad-top">
+                    <table>
+                        <tr>
+                            <span>
+                                <b style="font-size: 15px">{{ current_user.username }}</b>
+                            </span>
+                            <br>
+                            <div style="font-size: 13px">
+                                <form method="POST">
+                                    {{ form.hidden_tag() }}
+                                    {{ form.comment(class="comment-form") }}
+                                    {{ form.reply(style="display:none;", value="f") }}<br>
+                                    {{ form.submit(class="comment-button") }}
+                                </form>
+                            </div>
+                        </tr>
+                    </table>
+                </td>
+            </table>
+        
+        {% for comment in comments %}
+            <div comment-id="{{ comment.id }}">
+                <table cellpadding="5">
+                    <td class="va-top"><img class="comment-icon" src="{{ url_for('static',filename='profile_pics/' + comment.image_url) }}" /></td>
+                    <td class="no-pad-top">
+                        <table>
+                            <tr>
+                                <span>
+                                    <b style="font-size: 15px">{{ comment.username }}</b>
+                                </span>
+                                <br>
+                                <div class="comment-text">
+                                    {{ comment.text }}
+                                </div>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 13px">
+                                    <span class="gray">{{ comment.time }} </span>
+                                    &nbsp;
+                                    <a href="javascript:toggle({{comment.id}})">Reply</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </table>
+                <table style="margin-left: 50px; display:none;"  id="reply{{comment.id}}" cellpadding="5">
+                    <td class="va-top"><img class="comment-icon" src="{{ url_for('static',filename='profile_pics/' + current_user.image_file) }}" /></td>
+                    <td class="no-pad-top">
+                        <table>
+                            <tr>
+                                <span>
+                                    <b style="font-size: 15px">{{ current_user.username }}</b>
+                                </span>
+                                <br>
+                                <div style="font-size: 13px">
+                                    <form method="POST">
+                                        {{ form.hidden_tag() }}
+                                        {{ form.comment(class="comment-form") }}
+                                        {{ form.reply(style="display:none;", value=comment.id) }}<br>
+                                        {{ form.submit(class="comment-button") }}
+                                        &nbsp;
+                                        <a href="javascript:toggle({{comment.id}})">Cancel</a>
+                                    </form>
+                                </div>
+                
+                            </tr>
+                        </table>
+                    </td>
+                </table>
+            </div>
+            {% for reply in comment.replies %}
+            <div style="margin-left: 50px" >
+                <table cellpadding="5" comment-id="{{ reply.id }}">
+                    <td class="va-top"><img class="comment-icon" src="{{ url_for('static',filename='profile_pics/' + reply.image_url) }}" /></td>
+                    <td class="no-pad-top">
+                        <table>
+                            <tr>
+                                <span>
+                                    <b style="font-size: 15px">{{ comment.username }}</b>
+                                </span>
+                                <br>
+                                <div class="comment-text">
+                                    {{ reply.text }}
+                                </div>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 13px">
+                                    <span class="gray">{{ reply.time }} </span>
+                                    &nbsp;
+                                    <a href="javascript:toggle({{reply.id}})">Reply</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </table>
+                <table id="reply{{reply.id}}" style="display:none;"cellpadding="5">
+                    <td class="va-top"><img class="comment-icon" src="{{ url_for('static',filename='profile_pics/' + current_user.image_file) }}" /></td>
+                    <td class="no-pad-top">
+                        <table>
+                            <tr>
+                                <span>
+                                    <b style="font-size: 15px">{{ current_user.username }}</b>
+                                </span>
+                                <br>
+                                <div style="font-size: 13px">
+                                    <form method="POST"> 
+                                        {{ form.hidden_tag() }}
+                                        {{ form.comment(class="comment-form") }}
+                                        {{ form.reply(style="display:none;", value=comment.id) }}<br>
+                                        {{ form.submit(class="comment-button") }}
+                                        &nbsp;
+                                        <a href="javascript:toggle({{reply.id}})">Cancel</a>
+                                    </form>
+                                </div>
+                
+                            </tr>
+                        </table>
+                    </td>
+                </table>
+            </div>
+            {% endfor %}
+        {% endfor %}        
+        
+    </div>
+    
+    
+    
+    
+
+    <script>
+            function toggle(comment_id) {
+                if (document.getElementById("reply"+comment_id).style.display == "block") {
+                    document.getElementById("reply"+comment_id).style.display = "none";
+                } else {
+                    document.getElementById("reply"+comment_id).style.display = "block";
+                }
+            }
+        </script>
+</div>
+{% endblock content %}
