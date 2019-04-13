@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a1428f3d-d988-40ad-bfbf-8d9664356390" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blockchain_client/blockchain_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/blockchain_client/blockchain_client.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blockchain_client/templates/view_transactions.html" beforeDir="false" afterPath="$PROJECT_DIR$/blockchain_client/templates/view_transactions.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,8 +28,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blockchain_client/templates/view_transactions.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="415">
-              <caret line="135" column="94" selection-start-line="135" selection-start-column="94" selection-end-line="135" selection-end-column="94" />
+            <state relative-caret-position="393">
+              <caret line="38" column="64" selection-start-line="38" selection-start-column="64" selection-end-line="38" selection-end-column="64" />
             </state>
           </provider>
         </entry>
@@ -173,8 +171,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/blockchain_client/templates/view_transactions.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
-          <caret line="135" column="94" selection-start-line="135" selection-start-column="94" selection-end-line="135" selection-end-column="94" />
+        <state relative-caret-position="393">
+          <caret line="38" column="64" selection-start-line="38" selection-start-column="64" selection-end-line="38" selection-end-column="64" />
         </state>
       </provider>
     </entry>
