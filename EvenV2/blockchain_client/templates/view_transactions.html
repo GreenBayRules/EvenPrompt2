@@ -116,6 +116,8 @@
             <input type="button" id="get_score" class="btn btn-primary btn-lg" value="Get Score">
           </div>
         </div>
+      
+      <div id = "score"></div>
 
     </div>
 
@@ -163,6 +165,8 @@
                   count += 1;
                 };
               };
+
+              document.getElementById("score").innerHTML = response["chain"][response["chain"].length - 1]["transactions"][0]["value"]
 
               // Restrict a column to 10 characters, do split words
                 $('#transactions_table').dataTable( {
