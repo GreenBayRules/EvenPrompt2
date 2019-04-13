@@ -86,7 +86,40 @@
       </table>
     </div>
 
-    <div id = "score"></div>
+    <!-- Blockchain Get Score -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card-body">
+            <h4 class="card-title">Get Score</h4>
+            <p class="card-text">Enter the person ID to get their score</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container alert alert-secondary">
+
+        <div class="row">
+          <label class="col-sm-2">Person ID:</label>
+          <div class="col-sm-10">
+            <textarea id="person_id" rows="1" class="form-control" placeholder="Public key"></textarea>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <input type="button" id="get_score" class="btn btn-primary btn-lg" value="Get Score">
+          </div>
+        </div>
+      
+      <div id = "score"></div>
+
+    </div>
 
 
     <!-- Bootstrap core JavaScript -->
