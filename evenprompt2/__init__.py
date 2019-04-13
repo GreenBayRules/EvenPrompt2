@@ -27,11 +27,9 @@ def create_app(config_class=Config):
 
     from evenprompt2.users.routes import users
     from evenprompt2.main.routes import main
-    from evenprompt2.game.routes import game
     from evenprompt2.errors.handlers import errors
 
     app.register_blueprint(users)
-    app.register_blueprint(game)
     app.register_blueprint(main)
     app.register_blueprint(errors)
 

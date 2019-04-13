@@ -29,15 +29,13 @@
     <header class="site-header">
         <nav class="navbar navbar-expand-md fixed-top">
             <div class="container">
-            <a id="blue" class="navbar-brand mr-4 x-bold" href="{{ url_for('main.home') }}"><img style="height: 40px;" src="{{ url_for('static', filename='image/logo.png')}}">&nbsp; evenprompt2</a>
+            <a id="blue" class="navbar-brand mr-4 x-bold" href="{{ url_for('main.home') }}">evenprompt2</a>
             <button class="navbar-toggler" type="button" onclick="alterStateOfDropDown()">
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
                 <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
-                <a class="nav-item nav-link" href="{{ url_for('main.tutorial') }}">Tutorial</a>
-                <a class="nav-item nav-link" href="{{ url_for('game.play') }}">Play!</a>
                 </div>
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
@@ -47,8 +45,6 @@
                             <img style="height: 40px; width: 40px; border-radius: 100px;" src="{{ url_for('static', filename='profile_pics/' + current_user.image_file)}}">&nbsp; {{ current_user.username }}
                         </a>
                         <div id="dropdownbut" class="dropdown-menu">
-                            <a class="dropdown-item" href="{{ url_for('users.user_profile', username=current_user.username) }}">Profile</a>  
-                            <a class="dropdown-item" href="{{ url_for('users.account') }}">Settings</a>
                             <div class="dropdown-divider"></div> 
                             <a class="dropdown-item" href="{{ url_for('users.logout') }}">Logout</a> 
                         </div>
@@ -85,13 +81,6 @@
                                 <h1 class="animated fadeInDownBig x-bold white">{{ title }}</h1>
                                 <h5 class="animated fadeInLeftBig white">{{ subtitle }}</h5>
                             </td>
-                            <td>
-                                {% if logo %}
-                                <img class="animated fadeInRightBig banner-logo" style="border-radius:100px;height: 180px;width:180px;" src="{{ url_for('static', filename='profile_pics/' + logo)}}">
-                                {% else %}
-                                <img class="animated fadeInRightBig banner-logo" style="height: 180px;" src="{{ url_for('static', filename='image/inverse-logo.png')}}">
-                                {% endif %}
-                            </td>
                         </table>
                     </div>
                 </div>
@@ -101,16 +90,6 @@
                     {% block content %}{% endblock %}
                 </div>
             </div>
-            <!-- <div class="col-md-4">
-            <div class="content-section">
-                <h3 class="animated fadeInRightBig">News!</h3>
-                <p class='text-muted'>Math Attackerz has been changed to a more friendly design!
-                    We also have a bunch of new features! 
-                    
-                    <br><br>Checkout the blog post <a href="#" id="blue">here</a> for more information
-                </p>
-            </div>
-            </div> -->
         </div>
     </main>
     
