@@ -31,6 +31,8 @@ class RegistrationForm(FlaskForm):
         Length(min=6)
     ])
 
+    is_bank = BooleanField('Is this a bank account?')
+
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):

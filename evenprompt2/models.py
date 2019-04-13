@@ -19,6 +19,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default='default.png')
     password = db.Column(db.String(60), nullable=False)
     join_date = db.Column(db.DateTime, primary_key=False, default=datetime.utcnow)
+    is_bank = db.Column(db.String(20), primary_key=False, nullable=False, default='false')
 
 
     def get_reset_token(self, expires_sec=1800):

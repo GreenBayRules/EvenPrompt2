@@ -21,6 +21,8 @@ def create_app(config_class=Config):
 
     with app.app_context():
         db.init_app(app)
+        db.drop_all()
+        db.create_all()
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)

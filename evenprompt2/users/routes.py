@@ -22,7 +22,10 @@ def register():
     if form.validate_on_submit():
         # hash pass for security
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        print(form.is_bank.data)
+        string_bool = str(form.is_bank.data).lower()
+        print(string_bool)
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password, is_bank=string_bool)
 
         # add to database
         db.session.add(user)
