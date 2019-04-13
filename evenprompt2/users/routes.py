@@ -1,9 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint, abort
 from flask_login import login_user, current_user, logout_user, login_required
 from evenprompt2 import db, bcrypt
-from evenprompt2.models import User, Comment 
-from evenprompt2.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
-                                   RequestResetForm, ResetPasswordForm, UpdateBioForm,  PostCommentForm)
+from evenprompt2.models import User
+from evenprompt2.users.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm
 from evenprompt2.users.utils import save_picture, send_reset_email, get_joined_string
 from sqlalchemy import func
 from datetime import datetime
@@ -89,3 +88,9 @@ def reset_token(token):
         flash("Your password has been updated! You are now able to log in", 'success')
         return redirect(url_for('users.login'))
     return render_template('reset_token.html', title="Reset Password", subtitle="The final step", form=form)
+
+@users.route("/portal")
+def portal():
+    if not current_user.is_authenticated:
+        return redirect(url_for('users.login'))
+    return render_template("portal.html", title="Portal", subtitle="View your credit score here")

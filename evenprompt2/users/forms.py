@@ -65,41 +65,6 @@ class LoginForm(FlaskForm):
 
     submit = SubmitField('Login')
 
-
-class UpdateAccountForm(FlaskForm):
-    """
-    registration form for program
-    """
-    username = StringField('Change Username', validators=[
-        DataRequired(),
-        Length(min=2, max=20)
-    ])
-
-    email = StringField('Change Email', validators=[
-        DataRequired(),
-        Email()
-    ])
-
-    picture = FileField('Update Profile Picture', validators=[
-        FileAllowed(['jpg', 'png', 'gif'])
-    ])
-
-    submit = SubmitField('Update')
-
-    def validate_username(self, username):
-        if not username.data.isalnum():
-            raise ValidationError('Username must only be alphabets and numbers (alphanumeric).')
-        if username.data != current_user.username:
-            user = User.query.filter_by(username=username.data).first()
-            if user is not None:
-                raise ValidationError('That username is taken. Please choose a different one.')
-
-    def validate_email(self, email):
-        if email.data != current_user.email:
-            user = User.query.filter_by(email=email.data).first()
-            if user is not None:
-                raise ValidationError('That email is taken. Please choose a different one.')
-
 class RequestResetForm(FlaskForm):
     email = StringField('Email', 
                         validators=[DataRequired(),Email()])
@@ -109,23 +74,6 @@ class RequestResetForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is None:
             raise ValidationError('There is no account associated with that email. Please register first.')
-
-
-class UpdateBioForm(FlaskForm):
-    bio = StringField('Bio', 
-                        validators=[DataRequired(),
-        Length(min=10, max=500)], widget=TextArea())
-    submit = SubmitField('Update your Bio')
-
-class PostCommentForm(FlaskForm):
-    reply = StringField('Reply', 
-                        validators=[])
-    comment = StringField('Comment', 
-                        validators=[], widget=TextArea())
-    submit = SubmitField('Post')
-
-
-
 
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', 
