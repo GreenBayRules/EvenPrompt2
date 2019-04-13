@@ -96,4 +96,7 @@ def reset_token(token):
 def portal():
     if not current_user.is_authenticated:
         return redirect(url_for('users.login'))
-    return render_template("portal.html", title="Portal", subtitle="View your credit score here")
+    if current_user.is_bank == "false":
+        return render_template("user_portal.html", title="User Portal", subtitle="View your credit score here")
+    else:
+        return render_template("bank_portal.html", title="Bank Portal", subtitle="View your credit score here")
