@@ -13,218 +13,232 @@
     <!-- Bootstrap core CSS -->
     <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/custom.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/static/images/logo.png" />
+
+    
+
+    <!-- Fontaweesome animate.css-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
   </head>
 
   <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #33A1FD">
         <div class="container">
-            <a class="navbar-brand" href="#">Client</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                {% if current_user.is_authenticated %}
-                    {% if current_user.type == "bank" %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/make/transaction">Amend Transaction</a>
-                    </li>
-                    {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/info">Information</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/view/transactions">Get Score</a>
-                    </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{ current_user.username }}
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/profile">Profile</a>
-                    <a class="dropdown-item" href="/logout">Logout</a>
-                    </div>
-                </li>
-                {% else %}
+        <a class="navbar-brand" href="#">
+            <img src="/static/images/logo.png" class="navbar-image" />
+            <span class="navbar-text">Client</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+            {% if current_user.is_authenticated %}
+                {% if current_user.type == "bank" %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">Register</a>
+                    <a class="nav-link" href="/make/transaction">Amend Transaction</a>
                 </li>
                 {% endif %}
-            </ul>
-            </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="/info">Information</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/view/transactions">Get Score</a>
+                </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user"></i> {{ current_user.username }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/profile">Profile</a>
+                <a class="dropdown-item" href="/logout">Logout</a>
+                </div>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register">Register</a>
+            </li>
+            {% endif %}
+        </ul>
         </div>
-    </nav>
-
-
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-
-          <div class="card-body">
-            <h4 class="card-title">Amend Score</h4>
-            <p class="card-text">Enter Person Id and click "Enter Id" button then fill out all parameters in form and click on "Amend" button to generate new score</p>
-          </div>
-
-        </div>
-      </div>
     </div>
+</nav>
+<div class="container main orange">
+    <center>
+        <table class="orange">
+            <td style="text-align: center">
+                <h1 class="animated slideInLeft bold">Amend Score:</h1><br>
+                <h5 class="animated slideInRight bold">Enter Person ID and click "Enter Id" button then fill out all parameters in form and click on "Amend" button to generate new score</h5>
+            </td>
+        </table></center>
+    
+</div>
+
 
     <br>
 
 
-    <div class="container alert alert-secondary">
-      <br>
-    <form id="transaction_form">
+    <div class="container main animated slideInUp">
+        <br>
+    
+        <div class="container" style="background-color:#f5f5f5;">
+          <br>
+      <form id="transaction_form">
 
-        <div class="row">
-          <label class="col-sm-2">Sender Address:</label>
-          <div class="col-sm-10">
-            <input type="text" name="sender_address" id="sender_address" rows="2" value="{{current_user.public_key}}" class="form-control" readonly>
+          <div class="row">
+            <label class="col-sm-2">Sender Address:</label>
+            <div class="col-sm-10">
+              <input type="text" name="sender_address" id="sender_address" rows="2" value="{{current_user.public_key}}" class="form-control" readonly>
 
+            </div>
           </div>
-        </div>
 
-        <br>
+          <br>
 
-        <div class="row">
-          <label class="col-sm-2">Sender Private Key:</label>
-          <div class="col-sm-10">
-            <input type="text" name="sender_private_key" id="sender_private_key" rows="2" value="{{current_user.private_key}}" class="form-control" readonly>
+          <div class="row">
+            <label class="col-sm-2">Sender Private Key:</label>
+            <div class="col-sm-10">
+              <input type="text" name="sender_private_key" id="sender_private_key" rows="2" value="{{current_user.private_key}}" class="form-control" readonly>
+            </div>
           </div>
-        </div>
 
-        <br>
+          <br>
 
-        <div class="row" style="display:none">
-          <label class="col-sm-2">Amount to Send:</label>
-          <div class="col-sm-10">
-            <input type="text" name="amount" id="amount" rows="2" class="form-control">
+          <div class="row" style="display:none">
+            <label class="col-sm-2">Amount to Send:</label>
+            <div class="col-sm-10">
+              <input type="text" name="amount" id="amount" rows="2" class="form-control">
+            </div>
           </div>
-        </div>
 
-        <br>
+          <br>
 
-        <h5>Input Person Id:</h5>
+          <h5>Input Person Id:</h5>
 
-        <br>
+          <br>
 
-        <div class="row">
-          <label class="col-sm-2">Person Id:</label>
-          <div class="col-sm-10">
-            <input type="text" name="Person Id" id="person_Id" rows="2" class="form-control">
+          <div class="row">
+            <label class="col-sm-2">Person Id:</label>
+            <div class="col-sm-10">
+              <input type="text" name="Person Id" id="person_Id" rows="2" class="form-control">
+            </div>
           </div>
-        </div>
 
-        <br>
+          <br>
 
-        <div class="row">
-          <div class="col-lg-12 text-left">
-            <input type="button" id="Enter_Id" class="btn btn-primary btn-lg btn-block" value="Enter Id" onclick="get_user_Id()">
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-lg-10 text-left">
+              <input type="button" id="Enter_Id" class="btn btn-primary btn-lg btn-block" value="Enter Id" onclick="get_user_Id()">
+            </div>
           </div>
-        </div>
 
-        <br>
+          <br>
 
-        <h5>Add changes to the persons parameters</h5>
+          <h5>Add changes to the persons parameters</h5>
 
-        <br>
+          <br>
 
-        <div class="row">
-          <label class="col-sm-2">Education:</label>
-          <div class="col-sm-10">
-            <select name="EP" id="EP" class="form-control">
-              <option value=100>No education</option>
-              <option value=80>High School Degree</option>
-              <option value=30>Bachelors Degree</option>
-              <option value=9>Masters Degree</option>
-              <option value=3>PhD</option>
-            </select>
-          </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-          <label class="col-sm-2">Percent of loans paid on time (rounded to nearest percent):</label>
-          <div class="col-sm-10">
-            <input type="number" max=100 min=0 name="Ph" id="Ph" rows="2" class="form-control">
-          </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-          <label class="col-sm-2">Debt in $:</label>
-          <div class="col-sm-10">
-            <input type="number" name="D" id="D" rows="2" class="form-control">
-          </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-          <label class="col-sm-2">Total amount borrowed in $:</label>
-          <div class="col-sm-10">
-            <input type="number" name="Tm" id="Tm" rows="2" class="form-control">
-          </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-          <label class="col-sm-2">Years of credit history:</label>
-          <div class="col-sm-10">
-            <input type="number" name="Y" id="Y" rows="2" class="form-control">
-          </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-          <label class="col-sm-2">Number of new credits in the last 12 months:</label>
-          <div class="col-sm-10">
-            <input type="number" name="N" id="N" rows="2" class="form-control">
-          </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-          <label class="col-sm-2">Days with use of revolving credit in the last 12 months (leave blank if you do not have):</label>
-          <div class="col-sm-10">
-            <input type="number" max=365 min=0 name="CRr" id="CRr" rows="2" class="form-control">
-          </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-          <label class="col-sm-2">Have you used an installment loan in the past year:</label>
-          <div class="col-sm-10">
-            <select id="CRl" class="form-control">
-                <option value=0>No</option>
-                <option value=1>Yes</option>
+          <div class="row">
+            <label class="col-sm-2">Education:</label>
+            <div class="col-sm-10">
+              <select name="EP" id="EP" class="form-control">
+                <option value=100>No education</option>
+                <option value=80>High School Degree</option>
+                <option value=30>Bachelors Degree</option>
+                <option value=9>Masters Degree</option>
+                <option value=3>PhD</option>
               </select>
+            </div>
           </div>
-        </div>
 
-        <br>
+          <br>
 
-
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <input type="button" id="generate_transaction" class="btn btn-primary btn-lg" value="Amend">
+          <div class="row">
+            <label class="col-sm-2">Percent of loans paid on time (rounded to nearest percent):</label>
+            <div class="col-sm-10">
+              <input type="number" max=100 min=0 name="Ph" id="Ph" rows="2" class="form-control">
+            </div>
           </div>
-        </div>
 
-        <div id="score"></div>
-    </form>
+          <br>
+
+          <div class="row">
+            <label class="col-sm-2">Debt in $:</label>
+            <div class="col-sm-10">
+              <input type="number" name="D" id="D" rows="2" class="form-control">
+            </div>
+          </div>
+
+          <br>
+
+          <div class="row">
+            <label class="col-sm-2">Total amount borrowed in $:</label>
+            <div class="col-sm-10">
+              <input type="number" name="Tm" id="Tm" rows="2" class="form-control">
+            </div>
+          </div>
+
+          <br>
+
+          <div class="row">
+            <label class="col-sm-2">Years of credit history:</label>
+            <div class="col-sm-10">
+              <input type="number" name="Y" id="Y" rows="2" class="form-control">
+            </div>
+          </div>
+
+          <br>
+
+          <div class="row">
+            <label class="col-sm-2">Number of new credits in the last 12 months:</label>
+            <div class="col-sm-10">
+              <input type="number" name="N" id="N" rows="2" class="form-control">
+            </div>
+          </div>
+
+          <br>
+
+          <div class="row">
+            <label class="col-sm-2">Days with use of revolving credit in the last 12 months (leave blank if you do not have):</label>
+            <div class="col-sm-10">
+              <input type="number" max=365 min=0 name="CRr" id="CRr" rows="2" class="form-control">
+            </div>
+          </div>
+
+          <br>
+
+          <div class="row">
+            <label class="col-sm-2">Have you used an installment loan in the past year:</label>
+            <div class="col-sm-10">
+              <select id="CRl" class="form-control">
+                  <option value=0>No</option>
+                  <option value=1>Yes</option>
+                </select>
+            </div>
+          </div>
+
+          <br>
+
+
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-lg-10 text-center">
+              <input type="button" id="generate_transaction" class="btn btn-primary btn-lg btn-block" value="Amend">
+            </div>
+          </div>
+
+          <div id="score"></div>
+      </form>
+      <br>
+      </div>
     </div>
 
 

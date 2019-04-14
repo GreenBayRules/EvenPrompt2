@@ -1,3 +1,47 @@
+/*
+light or #FDCA40
+dark or #F79824
+light bl #33A1FD
+dark bl #2176FF
+*/
+@import url('https://fonts.googleapis.com/css?family=Lato:400,600,700,800,900');
+.navbar-image {
+	height: 50px;
+	margin-right: 10px;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255,.8);
+}
+.navbar-dark:hover .navbar-nav:hover .nav-link:hover {
+    background-color: #2176FF;
+}
+
+.navbar {
+	box-shadow: 0 1px 8px 0 rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12);
+}
+
+.main {
+	padding: 0px 60px;
+	margin-top: 20px;
+	background-color: white;
+	box-shadow: 0 1px 8px 0 rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12);
+}
+
+.orange {
+	background-color: #F79824;
+	color: white;
+	min-height: 150px;
+	padding: 20px 120px;
+	font-family: Lato;
+}
+.bold {
+	
+	font-weight: 600;
+}
+
 body {
-	padding-top: 54px;
-	}
+	background-color: #2176FF;
+}
+.lato {
+	font-family: Lato;
+}

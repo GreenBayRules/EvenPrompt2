@@ -1,7 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div class="container">
+<div class="container main orange">
+        <center>
+            <table class="orange">
+                <td style="text-align: center">
+                    <h1 class="animated slideInLeft bold">Profile:</h1><br>
+                </td>
+            </table></center>
+        
+    </div>
+
+<div class="container main animated slideInUp">
+    <br>
+    <h5>Type of Account: {{ current_user.type }}</h5>
     <br>
     <h4>Your public key is: </h4>
     <p>Click to copy</p>
