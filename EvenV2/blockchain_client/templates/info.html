@@ -4,21 +4,22 @@
   <br>
   <h4>The six pieces of your credit score:</h4>
 
-    <head>
-      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-      <script type="text/javascript">
-        google.charts.load("current", {packages:["corechart"]});
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ['Factor', 'Percentage'],
-            ['payment history', 35],
-            ['How much you owe', 30],
-            ['length of your credit history', 10],
-            ['types of accounts you have', 10],
-            ['Recent credit activity', 10],
-            ['Highest Education', 5]
-          ]);
+<h1>The six pieces of your credit score:</h1>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Factor', 'Percentage'],
+          ['payment history', 35],
+          ['How much you owe', 30],
+          ['length of your credit history', 10],
+          ['types of accounts you have', 10],
+          ['Recent credit activity', 10],
+          ['Highest Education', 5]
+        ]);
 
           var options = {
             title: 'My Daily Activities',
