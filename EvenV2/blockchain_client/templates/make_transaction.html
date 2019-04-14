@@ -79,7 +79,7 @@
         </div>
 
         <br>
-        
+
         <div class="row">
           <label class="col-sm-2">Sender Private Key:</label>
           <div class="col-sm-10">
@@ -88,7 +88,7 @@
         </div>
 
         <br>
-        
+
         <div class="row">
           <label class="col-sm-2">Recipient Address:</label>
           <div class="col-sm-10">
@@ -97,7 +97,7 @@
         </div>
 
         <br>
-        
+
         <div class="row">
           <label class="col-sm-2">Amount to Send:</label>
           <div class="col-sm-10">
@@ -106,15 +106,15 @@
         </div>
 
         <br>
-        
+
         <h5>Add changes to your variables</h5>
 
         <br>
-        
+
         <div class="row">
           <label class="col-sm-2">Education:</label>
           <div class="col-sm-10">
-            <select id="educationPercent" class="form-control">
+            <select name="EP" id="EP" class="form-control">
               <option value=100>No education</option>
               <option value=80>High School Degree</option>
               <option value=30>Bachelors Degree</option>
@@ -125,7 +125,7 @@
         </div>
 
         <br>
-        
+
         <div class="row">
           <label class="col-sm-2">Percent of loans paid on time (rounded to nearest percent):</label>
           <div class="col-sm-10">
@@ -134,7 +134,7 @@
         </div>
 
         <br>
-        
+
         <div class="row">
           <label class="col-sm-2">Debt in $:</label>
           <div class="col-sm-10">
@@ -143,7 +143,7 @@
         </div>
 
         <br>
-        
+
         <div class="row">
           <label class="col-sm-2">Total amount borrowed in $:</label>
           <div class="col-sm-10">
@@ -152,7 +152,7 @@
         </div>
 
         <br>
-        
+
         <div class="row">
           <label class="col-sm-2">Years of credit history:</label>
           <div class="col-sm-10">
@@ -161,7 +161,7 @@
         </div>
 
         <br>
-        
+
         <div class="row">
           <label class="col-sm-2">Number of new credits in the last 12 months:</label>
           <div class="col-sm-10">
@@ -170,7 +170,7 @@
         </div>
 
         <br>
-        
+
         <div class="row">
           <label class="col-sm-2">Days with use of revolving credit in the last 12 months (leave blank if you do not have):</label>
           <div class="col-sm-10">
@@ -179,7 +179,7 @@
         </div>
 
         <br>
-        
+
         <div class="row">
           <label class="col-sm-2">Have you used an installment loan in the past year:</label>
           <div class="col-sm-10">
@@ -191,8 +191,8 @@
         </div>
 
         <br>
-        
-        
+
+
         <div class="row">
           <div class="col-lg-12 text-center">
             <input type="button" id="generate_transaction" class="btn btn-primary btn-lg" value="Generate Transaction">
@@ -232,7 +232,7 @@
                     <input type="text" name="recipient_address" id="confirmation_recipient_address" rows="2" class="form-control" readonly>
                   </div>
                 </div>
-                
+
                 <div class="row">
                   <label class="col-sm-12">Amount to Send:</label>
                   <div class="col-sm-12">
@@ -315,7 +315,7 @@
                 document.getElementById("confirmation_amount").value = response["transaction"]["value"];
                 document.getElementById("transaction_signature").value = response["signature"];
                 $("#basicModal").modal('show');
-                
+
               },
               error: function(error){
                 console.log(error);
@@ -324,6 +324,7 @@
           });
       });
       function button_confirm_transaction() {
+        console.log($('#confirmation_transaction_form').serializeArray())
         $.ajax({
           url: document.getElementById("node_url").value + "/transactions/new",
           type: "POST",
@@ -331,10 +332,19 @@
           dataType : 'json',
           data: $('#confirmation_transaction_form').serialize(),
           success: function(response){
+            var exitJson = {}
+            exitJson["Ph"] = document.getElementById("Ph").value
+            exitJson["D"] = document.getElementById("D").value
+            exitJson["Tm"] = document.getElementById("Tm").value
+            exitJson["Y"] = document.getElementById("Y").value
+            exitJson["N"] = document.getElementById("N").value
+            exitJson["CRr"] = document.getElementById("CRr").value
+            exitJson["CRl"] = document.getElementById("CRl").value
+            exitJson["EP"] = document.getElementById("EP").value
             //reset both forms
             $("#transaction_form")[0].reset();
             $("#confirmation_transaction_form")[0].reset();
-            
+
             //clean text boxes
             $("#sender_address").val("");
             $("#sender_private_key").val("");
@@ -342,7 +352,7 @@
             $("#amount").val("");
             $("#basicModal").modal('hide');
             $("#success_transaction_modal").modal('show');
-            
+            console.log(exitJson)
           },
           error: function(error){
             alert(error.responseText);
