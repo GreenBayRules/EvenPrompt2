@@ -1,22 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class="container main orange">
+    <center>
+        <table class="orange">
+            <td style="text-align: center">
+                <h1 class="animated slideInLeft bold">Get Credit Score:</h1><br>
+                <h5 class="animated slideInRight bold">Enter the person ID to get their score</h5>
+            </td>
+        </table></center>
+    
+    
+</div>
+<div class="container main animated slideInUp">
+    <br>
 
-    <!-- Blockchain Get Score -->
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-
-          <div class="card-body">
-            <h4 class="card-title">Get Score</h4>
-            <p class="card-text">Enter the person ID to get their score</p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="container alert alert-secondary">
-
+    <div class="container" style="background-color:#f5f5f5;">
+        <br>
         <div class="row">
           <label class="col-sm-2">Person ID:</label>
           <div class="col-sm-10">
@@ -32,10 +31,12 @@
           </div>
         </div>
 
-      <div id = "score"></div>
+      <h4 class="lato bold">Your Credit Score is: <span id = "score"></span></h4>
+      <br>
 
     </div>
 
+    <br>
 
     <script type="text/javascript" src="/static/vendor/DataTables/js/datatables.min.js"></script>
     <script src="/static/vendor/DataTables/js/ellipsis.js"></script>
@@ -96,7 +97,7 @@
                    //Ph, D, Tw, Y, N, Crr, Cri, EP
                    console.log("numbers being entered: " + parseInt(json_prev.Ph), parseInt(json_prev.D), parseInt(json_prev.Tm), parseInt(json_prev.Y), parseInt(json_prev.N), parseInt(json_prev.CRr), parseInt(json_prev.CRl), parseInt(json_prev.EP))
                    value = algorithm(parseInt(json_prev.Ph), parseInt(json_prev.D), parseInt(json_prev.Tm), parseInt(json_prev.Y), parseInt(json_prev.N), parseInt(json_prev.CRr), parseInt(json_prev.CRl), parseInt(json_prev.EP));
-                   document.getElementById("score").innerHTML = "Score: " + value;
+                   document.getElementById("score").innerHTML = value;
                    isDone = true;
                    //TODO except and parse json
                 }

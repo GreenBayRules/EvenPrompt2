@@ -1,12 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container">
+<div class="container main orange">
+        <center>
+            <table class="orange">
+                <td style="text-align: center">
+                    <h1 class="animated slideInLeft bold">Register:</h1><br>
+                </td>
+            </table></center>
+        
+</div>
+<div class="container main animated slideInUp">
     <br>
     <div class="content-section">
         <form method="POST">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Register</legend>
                 <div class="form-group">
                     {{ form.username.label(class="form-control-label") }}
 
@@ -58,6 +66,7 @@
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
         </form>
+        <br>
     </div>
 </div>
 {% endblock content %}
