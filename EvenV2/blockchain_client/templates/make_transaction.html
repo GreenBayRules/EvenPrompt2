@@ -256,7 +256,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="button" id="button_confirm_transaction" class="btn btn-success">Confirm Transaction</button>
+            <button type="button" id="button_confirm_transaction" class="btn btn-success" onclick="button_confirm_transaction()">Confirm Transaction</button>
           </div>
 
         </div>
@@ -318,35 +318,32 @@
             });
           });
       });
-      $(function () {
-          $("#button_confirm_transaction").click(function () {
-            //console.log($('#confirmation_transaction_form').serialize());
-            $.ajax({
-              url: document.getElementById("node_url").value + "/transactions/new",
-              type: "POST",
-              headers: {'Access-Control-Allow-Origin':'*'},
-              dataType : 'json',
-              data: $('#confirmation_transaction_form').serialize(),
-              success: function(response){
-                //reset both forms
-                $("#transaction_form")[0].reset();
-                $("#confirmation_transaction_form")[0].reset();
-                
-                //clean text boxes
-                $("#sender_address").val("");
-                $("#sender_private_key").val("");
-                $("#recipient_address").val("");
-                $("#amount").val("");
-                $("#basicModal").modal('hide');
-                $("#success_transaction_modal").modal('show');
-                
-              },
-              error: function(error){
-                console.log(error);
-              }
-            });
-          });
-      });
+      function button_confirm_transaction() {
+        $.ajax({
+          url: document.getElementById("node_url").value + "/transactions/new",
+          type: "POST",
+          headers: {'Access-Control-Allow-Origin':'*'},
+          dataType : 'json',
+          data: $('#confirmation_transaction_form').serialize(),
+          success: function(response){
+            //reset both forms
+            $("#transaction_form")[0].reset();
+            $("#confirmation_transaction_form")[0].reset();
+            
+            //clean text boxes
+            $("#sender_address").val("");
+            $("#sender_private_key").val("");
+            $("#recipient_address").val("");
+            $("#amount").val("");
+            $("#basicModal").modal('hide');
+            $("#success_transaction_modal").modal('show');
+            
+          },
+          error: function(error){
+            alert(error.responseText);
+          }
+        });
+      }
     </script>
 
 
