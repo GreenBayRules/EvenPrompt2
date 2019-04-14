@@ -97,6 +97,10 @@ def generate_transaction():
 	return jsonify(response), 200
 
 
+@app.route('/info')
+def info():
+    return render_template('./info.html')
+
 if __name__ == '__main__':
     from argparse import ArgumentParser
 
