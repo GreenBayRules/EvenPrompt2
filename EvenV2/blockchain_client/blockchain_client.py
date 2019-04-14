@@ -3,9 +3,10 @@ title           : blockchain_client.py
 description     : A blockchain client implemenation, with the following features
                   - Wallets generation using Public/Private key encryption (based on RSA algorithm)
                   - Generation of transactions with RSA encryption
-author          : Adil Moujahid
-date_created    : 20180212
-date_modified   : 20180309
+                  - Login and Registration of users
+                  - Geting and Apending credit score
+author          : SSFin
+date_created    : 20190414
 version         : 0.3
 usage           : python blockchain_client.py
                   python blockchain_client.py -p 8080
@@ -210,7 +211,7 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('info'))
     form = LoginForm()
-    
+
     # on submit
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -221,7 +222,7 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('info'))
         else:
             flash("Login unsuccesful. Please check your email and password.", "danger")
-    
+
     return render_template("login.html", title="Login", subtitle="Access your account", form=form)
 
 @app.route("/logout", methods=['GET', 'POST'])
@@ -250,6 +251,6 @@ if __name__ == '__main__':
     parser.add_argument('-p', '--port', default=8080, type=int, help='port to listen on')
     args = parser.parse_args()
     port = args.port
-    
+
 
     app.run(host='127.0.0.1', port=port, debug=True)
