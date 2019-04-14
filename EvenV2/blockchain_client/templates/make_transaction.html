@@ -81,7 +81,7 @@
         <div class="row">
           <label class="col-sm-2">Sender Address:</label>
           <div class="col-sm-10">
-            <input type="text" name="sender_address" id="sender_address" rows="2" class="form-control">
+            <input type="text" name="sender_address" id="sender_address" rows="2" value="{{current_user.public_key}}" class="form-control" readonly>
 
           </div>
         </div>
@@ -91,7 +91,7 @@
         <div class="row">
           <label class="col-sm-2">Sender Private Key:</label>
           <div class="col-sm-10">
-            <input type="text" name="sender_private_key" id="sender_private_key" rows="2" class="form-control">
+            <input type="text" name="sender_private_key" id="sender_private_key" rows="2" value="{{current_user.private_key}}" class="form-control" readonly>
           </div>
         </div>
 
