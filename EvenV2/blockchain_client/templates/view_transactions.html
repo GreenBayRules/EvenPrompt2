@@ -85,21 +85,27 @@
                 count += 1;
               };
             };
-
+            var isDone = false;
             for (i = response["chain"].length - 1; i > 0; i--) {
               console.log("for loop entered")
               for (j = response["chain"][i]["transactions"].length - 1; j >= 0; j--) {
                 if(response["chain"][i]["transactions"][j]["recipient_address"] === document.getElementById("person_id").value) {
                    var value = response["chain"][i]["transactions"][j]["value"];
                    var json_prev = JSON.parse(value);
-                   console.log(json_prev);
+                   console.log("data: " + json_prev);
                    //Ph, D, Tw, Y, N, Crr, Cri, EP
+                   console.log("numbers being entered: " + parseInt(json_prev.Ph), parseInt(json_prev.D), parseInt(json_prev.Tm), parseInt(json_prev.Y), parseInt(json_prev.N), parseInt(json_prev.CRr), parseInt(json_prev.CRl), parseInt(json_prev.EP))
                    value = algorithm(parseInt(json_prev.Ph), parseInt(json_prev.D), parseInt(json_prev.Tm), parseInt(json_prev.Y), parseInt(json_prev.N), parseInt(json_prev.CRr), parseInt(json_prev.CRl), parseInt(json_prev.EP));
-                   console.log(parseInt(json_prev.Ph), parseInt(json_prev.D), parseInt(json_prev.Tm), parseInt(json_prev.Y), parseInt(json_prev.N), parseInt(json_prev.CRr), parseInt(json_prev.CRl), parseInt(json_prev.EP))
-                   document.getElementById("score").innerHTML = value;
-                   break;
+                   document.getElementById("score").innerHTML = "Score: " + value;
+                   isDone = true;
                    //TODO except and parse json
                 }
+                if(isDone) {
+                  break;
+                }
+              }
+              if(isDone) {
+                break;
               }
             }
 
