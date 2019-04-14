@@ -66,7 +66,7 @@
         <div class="row">
           <label class="col-sm-2">Education:</label>
           <div class="col-sm-10">
-            <select id="educationPercent" class="form-control">
+            <select id="Ep" class="form-control">
               <option value=100>No education</option>
               <option value=80>High School Degree</option>
               <option value=30>Bachelors Degree</option>
@@ -264,6 +264,8 @@
                 document.getElementById("confirmation_recipient_address").value = response["transaction"]["recipient_address"];
                 document.getElementById("confirmation_amount").value = response["transaction"]["value"];
                 document.getElementById("transaction_signature").value = response["signature"];
+
+                console.log(response)
 
                 $("#basicModal").modal('show');
                 
