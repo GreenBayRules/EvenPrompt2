@@ -15,7 +15,7 @@
     <link href="/static/css/custom.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/static/images/logo.png" />
 
-    
+
 
     <!-- Fontaweesome animate.css-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -40,7 +40,7 @@
             {% if current_user.is_authenticated %}
                 {% if current_user.type == "bank" %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/make/transaction">Amend Transaction</a>
+                    <a class="nav-link" href="/make/transaction">Amend Score</a>
                 </li>
                 {% endif %}
                 <li class="nav-item">
@@ -78,7 +78,7 @@
                 <h5 class="animated slideInRight bold">Enter Person ID and click "Enter Id" button then fill out all parameters in form and click on "Amend" button to generate new score</h5>
             </td>
         </table></center>
-    
+
 </div>
 
 
@@ -87,7 +87,7 @@
 
     <div class="container main animated slideInUp">
         <br>
-    
+
         <div class="container" style="background-color:#f5f5f5;">
           <br>
       <form id="transaction_form">
@@ -447,12 +447,12 @@
 
         console.log(person_Id);
         $.ajax({
-          url: "http://127.0.0.1:500"+Math.floor(Math.random() * 4)+"/chain",
+          url: "http://127.0.0.1:500"+Math.floor(Math.random() * 2)+"/chain",
           type: 'GET',
           success: function(response){
 
             console.log(response);
-            console.log("http://127.0.0.1:500"+Math.floor(Math.random() * 4)+"/chain")
+            console.log("http://127.0.0.1:500"+Math.floor(Math.random() * 2)+"/chain")
 
 
             for (i = response["chain"].length - 1; i > 0; i--) {
