@@ -34,7 +34,7 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from flask_login import current_user
 
 import requests
-from flask import Flask, jsonify, request, render_template, redirect, url_for
+from flask import Flask, jsonify, request, render_template, redirect, url_for, abort
 from flask_sqlalchemy import SQLAlchemy
 
 class RegistrationForm(FlaskForm):
@@ -56,6 +56,8 @@ class RegistrationForm(FlaskForm):
         EqualTo('password'),
         Length(min=6)
     ])
+
+    is_bank = BooleanField('Are you a bank? Leave un-checked if you are a client.')
 
     submit = SubmitField('Sign Up')
 
@@ -135,6 +137,8 @@ def index():
 @app.route('/make/transaction')
 @login_required
 def make_transaction():
+    if current_user.type != "bank":
+        abort(403)
     return render_template('./make_transaction.html')
 
 @app.route('/view/transactions')
@@ -195,6 +199,9 @@ def register():
         user = User(username=form.username.data, password=hashed_password)
 
         user.public_key, user.private_key = user.default_public_key, user.default_private_key
+        user.type = "client"
+        if form.is_bank.data:
+            user.type = "bank"
 
         # add to database
         db.session.add(user)
@@ -233,6 +240,7 @@ def logout():
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
+    type = db.Column(db.String(20), unique=False, nullable=False)
     default_private_key, default_public_key  = get_public_and_private_keys()
     public_key = db.Column(db.String(1000), nullable=False)
     private_key = db.Column(db.String(5000), nullable=False)
@@ -240,7 +248,7 @@ class User(db.Model, UserMixin):
 
 
     def __repr__(self):
-        return "Username: {}, Public key: {}".format(self.username, self.public_key)
+        return "Username: {}, Public key: {}, Type: {}".format(self.username, self.public_key, self.type)
 
 
 if __name__ == '__main__':
