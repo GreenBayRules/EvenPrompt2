@@ -431,7 +431,7 @@
 
             for (i = response["chain"].length - 1; i > 0; i--) {
               console.log("for loop entered")
-              for (j = response["chain"][i]["transactions"].length - 1; j > 0; j--) {
+              for (j = response["chain"][i]["transactions"].length - 1; j >= 0; j--) {
                 if(response["chain"][i]["transactions"][j]["recipient_address"] === person_Id) {
                    var value = response["chain"][i]["transactions"][j]["value"];
                    var json_prev = JSON.parse(value);
