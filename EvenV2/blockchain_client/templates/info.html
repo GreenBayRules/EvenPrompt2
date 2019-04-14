@@ -1,8 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class="container">
+  <br>
+  <h4>The six pieces of your credit score:</h4>
 
 <h1>The six pieces of your credit score:</h1>
-{{current_user.is_authenticated}}
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -19,39 +21,40 @@
           ['Highest Education', 5]
         ]);
 
-        var options = {
-          title: 'My Daily Activities',
-          pieHole: 0.4,
-        };
+          var options = {
+            title: 'My Daily Activities',
+            pieHole: 0.4,
+          };
 
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        chart.draw(data, options);
-      }
-    </script>
-  </head>
-  <body>
-    <div id="donutchart" style="width: 900px; height: 500px;"></div>
-  </body>
+          var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+          chart.draw(data, options);
+        }
+      </script>
+    </head>
+    <body>
+      <div id="donutchart" style="width: 900px; height: 500px;"></div>
+    </body>
 
-<h3>Your credit score is based on the following five factors:</h3>
+  <h3>Your credit score is based on the following five factors:</h3>
 
-<ul>
-    <li>Your <strong>payment history</strong> accounts for 35% of your score. This shows whether you make payments on time, how often you miss payments, how many days past the due date you pay your bills, and how recently payments have been missed. The higher your proportion of on-time payments, the higher your score will be. Every time you miss a payment, you negatively impact your score.</li>
-</ul>
+  <ul>
+      <li>Your <strong>payment history</strong> accounts for 35% of your score. This shows whether you make payments on time, how often you miss payments, how many days past the due date you pay your bills, and how recently payments have been missed. The higher your proportion of on-time payments, the higher your score will be. Every time you miss a payment, you negatively impact your score.</li>
+  </ul>
 
-<ul>
-    <li><strong>How much you owe</strong> on loans and credit cards makes up 30% of your score. This is based on the entire amount you owe, the number and types of accounts you have, and the proportion of money owed compared to how much credit you have available. High balances and maxed-out credit cards will lower your credit score, but smaller balances can raise it – if you pay on time. New loans with little payment history may drop your score temporarily, but loans that are closer to being paid off can increase it because they show a successful payment history.</li>
-</ul>
-<ul>
-    <li>The <strong>length of your credit history</strong> accounts for 10% of your score. The longer your history of making timely payments, the higher your score will be. It may seem wise to avoid applying for credit and carrying debt, but it can actually hurt your score if lenders have no credit history to review.</li>
-</ul>
-<ul>
-    <li>The <strong>types of accounts you have</strong> make up 10% of your score. Having a mix of accounts, including installment loans, home loans, and retail and credit cards may improve your score.</li>
-</ul>
-<ul>
-    <li><strong>Recent credit activity</strong> makes up the 10%. If you’ve opened a lot of accounts recently or applied to open accounts, it suggests potential financial trouble and can lower your score. However, if you’ve had the same loans or credit cards for a long time and pay them promptly – even after payment troubles – your score will go up over time.</li>
-</ul>
-<ul>
-    <li>Your <strong>Highest education</strong> makes up the final 5%. Although lots of times higher education suggests more unpaid loans, it is handled by another part of the algorithm. We make the assumption that the higher the education level the better you will be with loans etc. so the higher your score will be.</li>
-</ul>
+  <ul>
+      <li><strong>How much you owe</strong> on loans and credit cards makes up 30% of your score. This is based on the entire amount you owe, the number and types of accounts you have, and the proportion of money owed compared to how much credit you have available. High balances and maxed-out credit cards will lower your credit score, but smaller balances can raise it – if you pay on time. New loans with little payment history may drop your score temporarily, but loans that are closer to being paid off can increase it because they show a successful payment history.</li>
+  </ul>
+  <ul>
+      <li>The <strong>length of your credit history</strong> accounts for 10% of your score. The longer your history of making timely payments, the higher your score will be. It may seem wise to avoid applying for credit and carrying debt, but it can actually hurt your score if lenders have no credit history to review.</li>
+  </ul>
+  <ul>
+      <li>The <strong>types of accounts you have</strong> make up 10% of your score. Having a mix of accounts, including installment loans, home loans, and retail and credit cards may improve your score.</li>
+  </ul>
+  <ul>
+      <li><strong>Recent credit activity</strong> makes up the 10%. If you’ve opened a lot of accounts recently or applied to open accounts, it suggests potential financial trouble and can lower your score. However, if you’ve had the same loans or credit cards for a long time and pay them promptly – even after payment troubles – your score will go up over time.</li>
+  </ul>
+  <ul>
+      <li>Your <strong>Highest education</strong> makes up the final 5%. Although lots of times higher education suggests more unpaid loans, it is handled by another part of the algorithm. We make the assumption that the higher the education level the better you will be with loans etc. so the higher your score will be.</li>
+  </ul>
+  </div>
 {% endblock %}

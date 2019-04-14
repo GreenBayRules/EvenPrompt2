@@ -28,10 +28,10 @@
 
         <div class="row">
           <div class="col-lg-12 text-center">
-            <input type="button" id="get_score" class="btn btn-primary btn-lg" value="Get Score">
+            <input type="button" id="get_score" class="btn btn-primary btn-lg" onclick="getScore()" value="Get Score">
           </div>
         </div>
-      
+
       <div id = "score"></div>
 
     </div>
@@ -44,67 +44,79 @@
     <script>
       function algorithm(Ph, D, Tw, Y, N, Crr, Cri, EP){
         if(Y > 61){
-          Y=61
+          Y = 61;
         }
         if(N < 4) {
-          N = 4
+          N = 4;
         }
-        return Math.floor(1000 * (0.35 * Ph+0.3 * (D/Tw) + 0.1 * (Y/61) + 0.1 * (4/N) + 0.1 * (((Crr/100) + Cri)/2) + 0.05 * (1 - (EP/100)))
+        console.log(Math.floor(1000 * (0.35 * (Ph/100)+0.3 * (D/Tw) + 0.1 * (Y/61) + 0.1 * (4/N) + 0.1 * (((Crr/100) + Cri)/2) + 0.05 * (1 - (EP/100)))));
+        return Math.floor(1000 * (0.35 * (Ph/100)+0.3 * (D/Tw) + 0.1 * (Y/61) + 0.1 * (4/N) + 0.1 * (((Crr/100) + Cri)/2) + 0.05 * (1 - (EP/100))))
       }
-      $(function(){
 
-        
-        $('#get_score').click(function(){
+      function getScore() {
+        console.log("hi")
 
-          $.ajax({
-            url: "http://127.0.0.1:500"+Math.floor(Math.random() * 4)+"/chain",
-            type: 'GET',
-            success: function(response){
+        $.ajax({
+          url: "http://127.0.0.1:500"+Math.floor(Math.random() * 2)+"/chain",
+          type: 'GET',
+          success: function(response){
 
-              console.log(response);
-              console.log("http://127.0.0.1:500"+Math.floor(Math.random() * 3)+"/chain")
-              //Generate Transactions Table
-              var transactions = [];
-              count = 1;
+            console.log(response);
+            //Generate Transactions Table
+            var transactions = [];
+            count = 1;
 
-              for (i = 1; i < response.length; i++) {
-                for (j = 0; j < response["chain"][i]["transactions"].length; j++) {
+            for (i = 1; i < response.length; i++) {
+              for (j = 0; j < response["chain"][i]["transactions"].length; j++) {
 
-                  //format date
-                  var options = {  year: "numeric", month: "short",  day: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit"  };
-                  var date = new Date(response["chain"][i]["timestamp"] * 1000);
-                  var formattedDateTime = date.toLocaleTimeString("en-us", options);
+                //format date
+                var options = {  year: "numeric", month: "short",  day: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit"  };
+                var date = new Date(response["chain"][i]["timestamp"] * 1000);
+                var formattedDateTime = date.toLocaleTimeString("en-us", options);
 
-                  transaction = [count,
-                                response["chain"][i]["transactions"][j]["recipient_address"],
-                                response["chain"][i]["transactions"][j]["sender_address"],
-                                response["chain"][i]["transactions"][j]["value"],
-                                formattedDateTime,
-                                response["chain"][i]["block_number"]];
-                  transactions.push(transaction);
+                transaction = [count,
+                              response["chain"][i]["transactions"][j]["recipient_address"],
+                              response["chain"][i]["transactions"][j]["sender_address"],
+                              response["chain"][i]["transactions"][j]["value"],
+                              formattedDateTime,
+                              response["chain"][i]["block_number"]];
+                transactions.push(transaction);
 
-                  count += 1;
-                };
+                count += 1;
               };
-
-
-              for (i = response["chain"].length - 1; i > 0; i--) {
-                console.log("for loop entered")
-                if(response["chain"][i]["transactions"][0]["recipient_address"] === document.getElementById("person_id").value) {
-                  console.log("if entered")
-                   document.getElementById("score").innerHTML = response["chain"][response["chain"].length - 1]["transactions"][0]["value"]
+            };
+            var isDone = false;
+            for (i = response["chain"].length - 1; i > 0; i--) {
+              console.log("for loop entered")
+              for (j = response["chain"][i]["transactions"].length - 1; j >= 0; j--) {
+                if(response["chain"][i]["transactions"][j]["recipient_address"] === document.getElementById("person_id").value) {
+                   var value = response["chain"][i]["transactions"][j]["value"];
+                   var json_prev = JSON.parse(value);
+                   console.log("data: " + json_prev);
+                   //Ph, D, Tw, Y, N, Crr, Cri, EP
+                   console.log("numbers being entered: " + parseInt(json_prev.Ph), parseInt(json_prev.D), parseInt(json_prev.Tm), parseInt(json_prev.Y), parseInt(json_prev.N), parseInt(json_prev.CRr), parseInt(json_prev.CRl), parseInt(json_prev.EP))
+                   value = algorithm(parseInt(json_prev.Ph), parseInt(json_prev.D), parseInt(json_prev.Tm), parseInt(json_prev.Y), parseInt(json_prev.N), parseInt(json_prev.CRr), parseInt(json_prev.CRl), parseInt(json_prev.EP));
+                   document.getElementById("score").innerHTML = "Score: " + value;
+                   isDone = true;
+                   //TODO except and parse json
+                }
+                if(isDone) {
+                  break;
                 }
               }
-
-            },
-            error: function(error){
-              console.log(error);
+              if(isDone) {
+                break;
+              }
             }
-          });
+
+
+          },
+          error: function(error){
+            console.log(error);
+          }
         });
+      }
 
-
-      })
 
 
 
