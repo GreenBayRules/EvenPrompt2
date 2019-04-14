@@ -447,12 +447,12 @@
 
         console.log(person_Id);
         $.ajax({
-          url: "http://127.0.0.1:500"+Math.floor(Math.random() * 2)+"/chain",
+          url: "http://127.0.0.1:500"+Math.floor(Math.random() * 4)+"/chain",
           type: 'GET',
           success: function(response){
 
             console.log(response);
-            console.log("http://127.0.0.1:500"+Math.floor(Math.random() * 2)+"/chain")
+            console.log("http://127.0.0.1:500"+Math.floor(Math.random() * 4)+"/chain")
 
 
             for (i = response["chain"].length - 1; i > 0; i--) {
