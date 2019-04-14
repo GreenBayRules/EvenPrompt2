@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container">
+    <br>
+    <h4>Your public key is: </h4>
+    <p>Click to copy</p>
+    <textarea id="public_key" rows="5" class="form-control" readonly>{{current_user.public_key}}</textarea>
+    <br>
+    <h4>Your private key is:</h4>
+    <p>Click to copy</p>
+    <textarea id="private_key" rows="5" class="form-control" readonly>{{current_user.private_key}}</textarea>
+</div>
+
+<script>
+document.querySelector("#public_key").onclick = function(){
+  document.querySelector("#public_key").select();
+  document.execCommand('copy');
+};
+document.querySelector("#private_key").onclick = function(){
+  document.querySelector("#private_key").select();
+  document.execCommand('copy');
+};
+</script>
+{% endblock %}
