@@ -227,8 +227,6 @@ def login():
             print(user.is_authenticated, current_user, user, current_user.is_authenticated)
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('info'))
-        else:
-            flash("Login unsuccesful. Please check your email and password.", "danger")
 
     return render_template("login.html", title="Login", subtitle="Access your account", form=form)
 
