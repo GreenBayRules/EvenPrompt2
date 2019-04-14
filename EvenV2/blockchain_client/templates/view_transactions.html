@@ -42,7 +42,15 @@
 
 
     <script>
-
+      function algorithm(Ph, D, Tw, Y, N, Crr, Cri, EP){
+        if(Y > 61){
+          Y=61
+        }
+        if(N < 4) {
+          N = 4
+        }
+        return 1000 * (0.35 * Ph+0.3 * (D/Tw) + 0.1 * (y/61) + 0.1 * (4/N) + 0.1 * (((Crr/100) + Cri)/2) + 0.05 * (1 - (EP/100)))
+      }
       $(function(){
 
         
