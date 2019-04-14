@@ -55,8 +55,8 @@
         <div class="col-lg-12">
 
           <div class="card-body">
-            <h4 class="card-title">Send Coins</h4>
-            <p class="card-text">Enter transaction details and click on "Generate Transaction" button to generate your transaction</p>
+            <h4 class="card-title">Amend Score</h4>
+            <p class="card-text">Enter Person Id and click "Enter Id" button then fill out all parameters in form and click on "Amend" button to generate new score</p>
           </div>
 
         </div>
@@ -89,16 +89,7 @@
 
         <br>
 
-        <div class="row">
-          <label class="col-sm-2">Recipient Address:</label>
-          <div class="col-sm-10">
-            <input type="text" name="recipient_address" id="recipient_address" rows="2" class="form-control">
-          </div>
-        </div>
-
-        <br>
-
-        <div class="row">
+        <div class="row" style="display:none">
           <label class="col-sm-2">Amount to Send:</label>
           <div class="col-sm-10">
             <input type="text" name="amount" id="amount" rows="2" class="form-control">
@@ -107,7 +98,28 @@
 
         <br>
 
-        <h5>Add changes to your variables</h5>
+        <h5>Input Person Id:</h5>
+
+        <br>
+
+        <div class="row">
+          <label class="col-sm-2">Person Id:</label>
+          <div class="col-sm-10">
+            <input type="text" name="Person Id" id="person_Id" rows="2" class="form-control">
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-lg-12 text-left">
+            <input type="button" id="Enter_Id" class="btn btn-primary btn-lg btn-block" value="Enter Id" onclick="get_user_Id()">
+          </div>
+        </div>
+
+        <br>
+
+        <h5>Add changes to the persons parameters</h5>
 
         <br>
 
@@ -195,10 +207,11 @@
 
         <div class="row">
           <div class="col-lg-12 text-center">
-            <input type="button" id="generate_transaction" class="btn btn-primary btn-lg" value="Generate Transaction">
+            <input type="button" id="generate_transaction" class="btn btn-primary btn-lg" value="Amend">
           </div>
         </div>
 
+        <div id="score"></div>
     </form>
     </div>
 
@@ -302,8 +315,26 @@
 
 
     <script>
+    var currentPersonId;
+    var currentSendJson;
       $(function () {
           $("#generate_transaction").click(function () {
+            var exitJson = {}
+            exitJson["Ph"] = document.getElementById("Ph").value
+            exitJson["D"] = document.getElementById("D").value
+            exitJson["Tm"] = document.getElementById("Tm").value
+            exitJson["Y"] = document.getElementById("Y").value
+            exitJson["N"] = document.getElementById("N").value
+            exitJson["CRr"] = document.getElementById("CRr").value
+            exitJson["CRl"] = document.getElementById("CRl").value
+            exitJson["EP"] = document.getElementById("EP").value
+
+            currentSendJson = JSON.stringify(exitJson);
+
+            document.getElementById("amount").value = currentSendJson
+
+            console.log(currentPersonId)
+            console.log(currentSendJson)
             $.ajax({
               url: "/generate/transaction",
               type: "POST",
@@ -313,6 +344,27 @@
                 document.getElementById("confirmation_sender_address").value = response["transaction"]["sender_address"];
                 document.getElementById("confirmation_recipient_address").value = response["transaction"]["recipient_address"];
                 document.getElementById("confirmation_amount").value = response["transaction"]["value"];
+                document.getElementById("transaction_signature").value = response["signature"];
+                $("#basicModal").modal('show');
+
+              },
+              error: function(error){
+                console.log(error);
+              }
+            });
+            data = $('#transaction_form').serialize()
+            console.log(data)
+            $.ajax({
+              url: "/generate/transaction",
+              type: "POST",
+              dataType : 'json',
+              data: data,
+              success: function(response){
+                document.getElementById("confirmation_sender_address").value = response["transaction"]["sender_address"];
+                console.log(currentPersonId)
+                console.log(currentSendJson)
+                document.getElementById("confirmation_recipient_address").value = currentPersonId;
+                document.getElementById("confirmation_amount").value = currentSendJson;
                 document.getElementById("transaction_signature").value = response["signature"];
                 $("#basicModal").modal('show');
 
@@ -332,15 +384,7 @@
           dataType : 'json',
           data: $('#confirmation_transaction_form').serialize(),
           success: function(response){
-            var exitJson = {}
-            exitJson["Ph"] = document.getElementById("Ph").value
-            exitJson["D"] = document.getElementById("D").value
-            exitJson["Tm"] = document.getElementById("Tm").value
-            exitJson["Y"] = document.getElementById("Y").value
-            exitJson["N"] = document.getElementById("N").value
-            exitJson["CRr"] = document.getElementById("CRr").value
-            exitJson["CRl"] = document.getElementById("CRl").value
-            exitJson["EP"] = document.getElementById("EP").value
+
             //reset both forms
             $("#transaction_form")[0].reset();
             $("#confirmation_transaction_form")[0].reset();
@@ -348,14 +392,68 @@
             //clean text boxes
             $("#sender_address").val("");
             $("#sender_private_key").val("");
-            $("#recipient_address").val("");
-            $("#amount").val("");
             $("#basicModal").modal('hide');
             $("#success_transaction_modal").modal('show');
-            console.log(exitJson)
+            var json_new = JSON.parse(currentSendJson);
+            console.log(json_new);
+            //Ph, D, Tw, Y, N, Crr, Cri, EP
+            var value_new = algorithm(parseInt(json_new.Ph), parseInt(json_new.D), parseInt(json_new.Tm), parseInt(json_new.Y), parseInt(json_new.N), parseInt(json_new.CRr), parseInt(json_new.CRl), parseInt(json_new.EP));
+            document.getElementById("score").innerHTML = "Score: " + value_new;
           },
           error: function(error){
             alert(error.responseText);
+          }
+        });
+      }
+      function algorithm(Ph, D, Tw, Y, N, Crr, Cri, EP){
+        if(Y > 61){
+          Y = 61;
+        }
+        if(N < 4) {
+          N = 4;
+        }
+        console.log(Math.floor(1000 * (0.35 * (Ph/100)+0.3 * (D/Tw) + 0.1 * (Y/61) + 0.1 * (4/N) + 0.1 * (((Crr/100) + Cri)/2) + 0.05 * (1 - (EP/100)))));
+        return Math.floor(1000 * (0.35 * (Ph/100)+0.3 * (D/Tw) + 0.1 * (Y/61) + 0.1 * (4/N) + 0.1 * (((Crr/100) + Cri)/2) + 0.05 * (1 - (EP/100))))
+      }
+      function get_user_Id() {
+        var person_Id = document.getElementById("person_Id").value
+        currentPersonId = document.getElementById("person_Id").value
+
+        console.log(person_Id);
+        $.ajax({
+          url: "http://127.0.0.1:500"+Math.floor(Math.random() * 2)+"/chain",
+          type: 'GET',
+          success: function(response){
+
+            console.log(response);
+            console.log("http://127.0.0.1:500"+Math.floor(Math.random() * 2)+"/chain")
+
+
+            for (i = response["chain"].length - 1; i > 0; i--) {
+              console.log("for loop entered")
+              for (j = response["chain"][i]["transactions"].length - 1; j > 0; j--) {
+                if(response["chain"][i]["transactions"][j]["recipient_address"] === person_Id) {
+                   var value = response["chain"][i]["transactions"][j]["value"];
+                   var json_prev = JSON.parse(value);
+                   console.log(json_prev);
+                   document.getElementById("Ph").value = json_prev.Ph;
+                   document.getElementById("D").value = json_prev.D;
+                   document.getElementById("Tm").value = json_prev.Tm;
+                   document.getElementById("Y").value = json_prev.Y;
+                   document.getElementById("N").value = json_prev.N;
+                   document.getElementById("CRr").value = json_prev.CRr;
+                   document.getElementById("CRl").value = json_prev.CRl;
+                   document.getElementById("EP").value = json_prev.EP;
+
+                   break;
+                   //TODO except and parse json
+                }
+              }
+            }
+
+          },
+          error: function(error){
+            console.log(error);
           }
         });
       }
