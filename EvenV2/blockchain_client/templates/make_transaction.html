@@ -1,47 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-  <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Blockchain Client</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/css/custom.css" rel="stylesheet">
-
-  </head>
-
-  <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Blockchain Client</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Wallet Generator
-              </a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="/make/transaction">Make Transaction</a>
-              <span class="sr-only">(current)</span>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/view/transactions">View Transactions</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+{% extends "layout.html" %}
+{% block content %}
 
 
     <div class="container">
@@ -61,6 +19,7 @@
 
 
     <div class="container alert alert-secondary">
+      <br>
     <form id="transaction_form">
 
         <div class="row">
@@ -100,13 +59,97 @@
 
         <br>
         
+        <h5>Add changes to your variables</h5>
+
+        <br>
+        
+        <div class="row">
+          <label class="col-sm-2">Education:</label>
+          <div class="col-sm-10">
+            <select id="educationPercent" class="form-control">
+              <option value=100>No education</option>
+              <option value=80>High School Degree</option>
+              <option value=30>Bachelors Degree</option>
+              <option value=9>Masters Degree</option>
+              <option value=3>PhD</option>
+            </select>
+          </div>
+        </div>
+
+        <br>
+        
+        <div class="row">
+          <label class="col-sm-2">Percent of loans paid on time (rounded to nearest percent):</label>
+          <div class="col-sm-10">
+            <input type="number" max=100 min=0 name="Ph" id="Ph" rows="2" class="form-control">
+          </div>
+        </div>
+
+        <br>
+        
+        <div class="row">
+          <label class="col-sm-2">Debt in $:</label>
+          <div class="col-sm-10">
+            <input type="number" name="D" id="D" rows="2" class="form-control">
+          </div>
+        </div>
+
+        <br>
+        
+        <div class="row">
+          <label class="col-sm-2">Total amount borrowed in $:</label>
+          <div class="col-sm-10">
+            <input type="number" name="Tm" id="Tm" rows="2" class="form-control">
+          </div>
+        </div>
+
+        <br>
+        
+        <div class="row">
+          <label class="col-sm-2">Years of credit history:</label>
+          <div class="col-sm-10">
+            <input type="number" name="Y" id="Y" rows="2" class="form-control">
+          </div>
+        </div>
+
+        <br>
+        
+        <div class="row">
+          <label class="col-sm-2">Number of new credits in the last 12 months:</label>
+          <div class="col-sm-10">
+            <input type="number" name="N" id="N" rows="2" class="form-control">
+          </div>
+        </div>
+
+        <br>
+        
+        <div class="row">
+          <label class="col-sm-2">Days with use of revolving credit in the last 12 months (leave blank if you do not have):</label>
+          <div class="col-sm-10">
+            <input type="number" max=365 min=0 name="CRr" id="CRr" rows="2" class="form-control">
+          </div>
+        </div>
+
+        <br>
+        
+        <div class="row">
+          <label class="col-sm-2">Have you used an installment loan in the past year:</label>
+          <div class="col-sm-10">
+            <select id="CRl" class="form-control">
+                <option value=0>No</option>
+                <option value=1>Yes</option>
+              </select>
+          </div>
+        </div>
+
+        <br>
+        
+        
         <div class="row">
           <div class="col-lg-12 text-center">
             <input type="button" id="generate_transaction" class="btn btn-primary btn-lg" value="Generate Transaction">
           </div>
         </div>
-
-        <br>
 
     </form>
     </div>
@@ -205,11 +248,6 @@
 
 
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="/static/vendor/jquery/jquery.min.js"></script>
-    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-
     <script>
 
       $(function () {
@@ -276,7 +314,4 @@
 
     </script>
 
-
-  </body>
-
-</html>
+{% endblock %}
